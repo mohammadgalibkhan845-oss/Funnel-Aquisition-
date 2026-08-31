@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Production builds
+client/dist/
+
+# Environment Variables
+.env
+.env.local
+.env.production
+
+# Temp and diagnostic files
+extract-ref.js
+ref-bundle.txt
+ref-strings.json
+check-imports.js
+
+# OS files
+.DS_Store
+Thumbs.db

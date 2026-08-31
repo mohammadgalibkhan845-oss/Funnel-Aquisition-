@@ -1,0 +1,848 @@
+{
+  "users": [
+    {
+      "id": "user-admin",
+      "name": "Mohammad Galib Khan (Agency Founder)",
+      "email": "admin@nexleads.com",
+      "role": "admin",
+      "passwordHash": "$2a$10$wN388Bv8.52n56L2gVzPweaF/w43g46vFqG/n4j7Wk5R4rX/X1wGe",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
+    },
+    {
+      "id": "user-closer",
+      "name": "David Vance (Senior Closer)",
+      "email": "closer@apexacquisition.com",
+      "role": "closer",
+      "passwordHash": "$2a$10$wN388Bv8.52n56L2gVzPweaF/w43g46vFqG/n4j7Wk5R4rX/X1wGe",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80"
+    },
+    {
+      "id": "user-setter",
+      "name": "Elena Rostova (SDR / Setter)",
+      "email": "setter@apexacquisition.com",
+      "role": "setter",
+      "passwordHash": "$2a$10$wN388Bv8.52n56L2gVzPweaF/w43g46vFqG/n4j7Wk5R4rX/X1wGe",
+      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80"
+    }
+  ],
+  "leads": [
+    {
+      "id": "id_1788203970319_ik8p49bqg",
+      "createdAt": "2026-08-31T19:19:30.319Z",
+      "updatedAt": "2026-08-31T19:19:30.319Z",
+      "name": "awbek,",
+      "email": "hhmbewmhjwecew@123",
+      "phone": "",
+      "niche": "Executive & Leadership Coach",
+      "country": "United States",
+      "website": "",
+      "offer": "High-Ticket Coaching Program",
+      "offerPrice": 4000,
+      "dealValue": 4000,
+      "monthlyLeads": 25,
+      "monthlyBookedCalls": 4,
+      "leadSource": "Booking Funnel",
+      "cta": "Book Discovery Call",
+      "funnel": "Cal.com Strategy Booking",
+      "bookingSystem": "Automated 2-Step Calendar",
+      "leadMagnet": "Funnel Audit",
+      "followUp": "Automated SMS + Email Reminders",
+      "painPoint": "Losing leads in DMs & poor follow-up after calls",
+      "opportunity": "1-on-1 Client Acquisition Architecture Blueprint",
+      "stage": "Call Booked",
+      "auditScore": 75,
+      "assignedTo": "user-closer",
+      "bookedCallDate": "2026-09-01T11:30:00",
+      "lastContactDate": "2026-08-31T19:19:30.319Z",
+      "tags": [
+        "Call Booked",
+        "Strategy Session"
+      ]
+    },
+    {
+      "id": "id_1788203215037_xxyzk26qo",
+      "createdAt": "2026-08-31T19:06:55.037Z",
+      "updatedAt": "2026-08-31T19:06:55.037Z",
+      "name": "Alex Rivera",
+      "email": "alex@scalingcoaches.com",
+      "phone": "",
+      "niche": "B2B Sales & Growth Coaches",
+      "country": "United States",
+      "website": "",
+      "socialProfile": "",
+      "offer": "1:1 Coaching",
+      "offerPrice": 4500,
+      "dealValue": 4500,
+      "monthlyLeads": 35,
+      "monthlyBookedCalls": 3,
+      "leadSource": "Organic Social",
+      "cta": "DM or Link in bio",
+      "funnel": "Unstructured DMs",
+      "bookingSystem": "Manual",
+      "leadMagnet": "None",
+      "followUp": "None",
+      "painPoint": "Losing leads before they book",
+      "opportunity": "Fix Direct-to-DM Traffic Drop-Off to recover ~$13,500/mo.",
+      "stage": "Audit Completed",
+      "auditScore": 27,
+      "latestAuditId": "id_1788203215036_s7bififdc",
+      "assignedTo": "user-setter",
+      "lastContactDate": "2026-08-31T19:06:55.037Z",
+      "tags": [
+        "Inbound Audit",
+        "B2B Sales & Growth Coaches"
+      ]
+    },
+    {
+      "id": "id_1788202886074_yiujxjj90",
+      "createdAt": "2026-08-31T19:01:26.074Z",
+      "updatedAt": "2026-08-31T19:01:26.074Z",
+      "name": "Dr. Sarah Jenkins",
+      "email": "sarah@executivemindset.com",
+      "phone": "",
+      "niche": "Executive & Leadership Coaches",
+      "country": "United States",
+      "website": "",
+      "socialProfile": "",
+      "offer": "1:1 Coaching",
+      "offerPrice": 5000,
+      "dealValue": 5000,
+      "monthlyLeads": 40,
+      "monthlyBookedCalls": 3,
+      "leadSource": "Organic Social",
+      "cta": "DM or Link in bio",
+      "funnel": "Direct Message (Unstructured)",
+      "bookingSystem": "Manual",
+      "leadMagnet": "None",
+      "followUp": "None",
+      "painPoint": "Losing leads before they book",
+      "opportunity": "Fix Direct-to-DM Traffic Drop-Off to recover ~$15,000/mo.",
+      "stage": "Audit Completed",
+      "auditScore": 27,
+      "latestAuditId": "id_1788202886072_x71f0mbij",
+      "assignedTo": "user-setter",
+      "lastContactDate": "2026-08-31T19:01:26.074Z",
+      "tags": [
+        "Inbound Audit",
+        "Executive & Leadership Coaches"
+      ]
+    },
+    {
+      "id": "id_1788188100754_09j5r4o7w",
+      "createdAt": "2026-08-31T14:55:00.754Z",
+      "updatedAt": "2026-08-31T14:55:00.830Z",
+      "name": "Dr. Rebecca Stone",
+      "email": "rebecca@stoneexecutive.com",
+      "phone": "+1 555-444-3322",
+      "niche": "Executive & Leadership Coach",
+      "country": "United States",
+      "website": "",
+      "socialProfile": "",
+      "offer": "CEO Transition Program",
+      "offerPrice": 8000,
+      "dealValue": 8000,
+      "monthlyLeads": 50,
+      "monthlyBookedCalls": 6,
+      "leadSource": "Organic Social (LinkedIn/IG)",
+      "cta": "DM or Link in bio",
+      "funnel": "Direct DM / Link in Bio",
+      "bookingSystem": "Manual Messaging / DM Links",
+      "leadMagnet": "None",
+      "followUp": "Single follow up or none",
+      "painPoint": "Losing 70% of leads before they book a call",
+      "opportunity": "Fix Direct-to-DM Traffic Drop-Off to recover ~$32,000/mo.",
+      "stage": "Call Booked",
+      "auditScore": 33,
+      "latestAuditId": "id_1788188100749_xfu3v9kd5",
+      "assignedTo": "user-setter",
+      "lastContactDate": "2026-08-31T14:55:00.830Z",
+      "tags": [
+        "Inbound Audit",
+        "Executive & Leadership Coach"
+      ],
+      "bookedCallDate": "2026-09-03T14:30:00"
+    },
+    {
+      "id": "lead-1",
+      "name": "Marcus Sterling",
+      "email": "marcus@sterlingexecutive.com",
+      "phone": "+1 (555) 234-5678",
+      "niche": "Executive & Leadership Coach",
+      "country": "United States",
+      "website": "https://sterlingexecutive.com",
+      "socialProfile": "https://linkedin.com/in/marcussterling-leadership",
+      "offer": "C-Suite 90-Day Transition Mastermind",
+      "offerPrice": 7500,
+      "monthlyLeads": 25,
+      "monthlyBookedCalls": 4,
+      "leadSource": "LinkedIn & Word of Mouth",
+      "cta": "DM me \"LEAD\" on LinkedIn",
+      "funnel": "Direct DM with No Lead Magnet",
+      "bookingSystem": "Manual Email Exchange",
+      "leadMagnet": "None",
+      "followUp": "Manual spreadsheet, 1 follow-up max",
+      "painPoint": "High qualified attention on LinkedIn, but prospects disappear before booking calls.",
+      "opportunity": "Install automated Executive Diagnostic Quiz + frictionless Cal.com integration to double booked calls.",
+      "stage": "Prospect Researched",
+      "auditScore": 42,
+      "dealValue": 7500,
+      "assignedTo": "user-setter",
+      "lastContactDate": "2026-08-28T10:30:00.000Z",
+      "notes": "Very strong authority profile (18k followers), zero backend automation.",
+      "tags": [
+        "High Ticket",
+        "Executive",
+        "Cold Outreach"
+      ]
+    },
+    {
+      "id": "lead-2",
+      "name": "Dr. Sophia Vance",
+      "email": "sophia@vanceneurocoaching.com",
+      "phone": "+1 (555) 890-1234",
+      "niche": "High-Ticket Transformation Coach",
+      "country": "Canada",
+      "website": "https://vanceneurocoaching.ca",
+      "socialProfile": "https://instagram.com/dr.sophia.mindset",
+      "offer": "Neuro-Rewiring for Founders",
+      "offerPrice": 5000,
+      "monthlyLeads": 45,
+      "monthlyBookedCalls": 7,
+      "leadSource": "Instagram Reels & Podcasts",
+      "cta": "Link in Bio (Linktree to 6 different links)",
+      "funnel": "Cluttered Linktree, No Email Opt-in",
+      "bookingSystem": "Calendly Free (No qualification)",
+      "leadMagnet": "5-page PDF (untracked)",
+      "followUp": "No automated nurture sequence",
+      "painPoint": "Tons of DMs asking questions, but very few qualify or attend scheduled calls (40% no-show).",
+      "opportunity": "Replace Linktree with dedicated VSL + 2-step qualification gate and SMS reminder sequence.",
+      "stage": "Outreach Sent",
+      "auditScore": 56,
+      "dealValue": 5000,
+      "assignedTo": "user-setter",
+      "lastContactDate": "2026-08-29T14:15:00.000Z",
+      "notes": "Sent personalized 4-step outreach on IG highlighting the Linktree leak.",
+      "tags": [
+        "Instagram",
+        "Mindset",
+        "Follow-up Needed"
+      ]
+    },
+    {
+      "id": "lead-3",
+      "name": "Julian Bennett",
+      "email": "julian@scaleb2bsales.com",
+      "phone": "+44 20 7946 0912",
+      "niche": "B2B Sales Coach",
+      "country": "United Kingdom",
+      "website": "https://scaleb2bsales.co.uk",
+      "socialProfile": "https://linkedin.com/in/julian-bennett-sales",
+      "offer": "Enterprise Sales Acceleration Sprint",
+      "offerPrice": 10000,
+      "monthlyLeads": 60,
+      "monthlyBookedCalls": 12,
+      "leadSource": "LinkedIn & Cold Email",
+      "cta": "Book a discovery call",
+      "funnel": "Basic landing page with generic form",
+      "bookingSystem": "HubSpot Meetings",
+      "leadMagnet": "Sales Matrix Template",
+      "followUp": "1 generic email confirmation",
+      "painPoint": "Prospects reschedule or do not show up prepared; average sales cycle is 45 days.",
+      "opportunity": "Install Day 0-7 pre-call indoctrination sequence and automated economic case study breakdown.",
+      "stage": "Audit Completed",
+      "auditScore": 68,
+      "dealValue": 10000,
+      "assignedTo": "user-closer",
+      "lastContactDate": "2026-08-30T11:00:00.000Z",
+      "notes": "Audit scorecard generated: Leaks identified in Pre-Call Indoctrination and Nurture.",
+      "tags": [
+        "High Value",
+        "B2B Sales",
+        "Audit Ready"
+      ]
+    },
+    {
+      "id": "lead-4",
+      "name": "Chloe Tremblay",
+      "email": "chloe@peakmetabolismfitness.com",
+      "phone": "+1 (555) 432-8765",
+      "niche": "Health & Wellness Coach",
+      "country": "United States",
+      "website": "https://peakmetabolism.com",
+      "socialProfile": "https://instagram.com/chloe.peakfitness",
+      "offer": "16-Week Metabolic Reset for Female Executives",
+      "offerPrice": 3500,
+      "monthlyLeads": 80,
+      "monthlyBookedCalls": 15,
+      "leadSource": "Instagram Stories & Meta Ads",
+      "cta": "Apply for 1:1 Coaching",
+      "funnel": "Typeform application into Calendly",
+      "bookingSystem": "Calendly Pro",
+      "leadMagnet": "Metabolic Cheat Sheet",
+      "followUp": "Mailchimp broadcast only (no trigger)",
+      "painPoint": "Spends 3 hours a day manually replying to Instagram DMs and chasing unqualified leads.",
+      "opportunity": "Deploy automated DM-to-Funnel quiz with auto-qualification score + Day 0/1/3 nurture.",
+      "stage": "Outreach Sent",
+      "auditScore": 71,
+      "dealValue": 3500,
+      "assignedTo": "user-closer",
+      "lastContactDate": "2026-08-31T18:35:50.617Z",
+      "bookedCallDate": "2026-09-02T16:00:00.000Z",
+      "notes": "Stage updated to Outreach Sent",
+      "tags": [
+        "Fitness",
+        "Ads Traffic",
+        "Strategy Call"
+      ],
+      "updatedAt": "2026-08-31T18:35:50.618Z"
+    },
+    {
+      "id": "lead-5",
+      "name": "Harrison Vance",
+      "email": "harrison@vancebusinessgrowth.com",
+      "phone": "+61 2 9876 5432",
+      "niche": "Business & Agency Coach",
+      "country": "Australia",
+      "website": "https://vancebusinessgrowth.com.au",
+      "socialProfile": "https://youtube.com/@harrisonvanceagency",
+      "offer": "7-Figure Agency Operator Program",
+      "offerPrice": 12000,
+      "monthlyLeads": 110,
+      "monthlyBookedCalls": 22,
+      "leadSource": "YouTube Long-form & Newsletter",
+      "cta": "Book a 1-on-1 Growth Diagnostic",
+      "funnel": "YouTube -> Google Doc -> Booking link",
+      "bookingSystem": "Cal.com",
+      "leadMagnet": "Agency Scaling Framework (GDoc)",
+      "followUp": "Weekly Substack email",
+      "painPoint": "High organic trust, but no retargeting or structured nurture funnel for unconverted leads.",
+      "opportunity": "Scale offer: Install multi-channel CRM, automated SMS confirmations, and 90-day growth engine.",
+      "stage": "Proposal Sent",
+      "auditScore": 79,
+      "dealValue": 12000,
+      "assignedTo": "user-admin",
+      "lastContactDate": "2026-08-31T15:30:00.000Z",
+      "notes": "Sent $12k Scale Package proposal after strategy call. Projected +$36k/mo in booked calls.",
+      "tags": [
+        "VIP Prospect",
+        "Agency Coach",
+        "Proposal Out"
+      ]
+    },
+    {
+      "id": "lead-6",
+      "name": "Maya Lin",
+      "email": "maya@consciousrelations.com",
+      "phone": "+1 (555) 678-9012",
+      "niche": "Relationship & Life Coach",
+      "country": "United States",
+      "website": "https://consciousrelations.com",
+      "socialProfile": "https://tiktok.com/@maya.consciouslove",
+      "offer": "Couples Alignment Intensive",
+      "offerPrice": 4000,
+      "monthlyLeads": 50,
+      "monthlyBookedCalls": 10,
+      "leadSource": "TikTok & Instagram",
+      "cta": "DM \"CONNECT\"",
+      "funnel": "Direct DMs",
+      "bookingSystem": "Acuity Scheduling",
+      "leadMagnet": "None",
+      "followUp": "None",
+      "painPoint": "Loses 80% of interested followers because she forgets to follow up in DMs after 24 hours.",
+      "opportunity": "Automated 7-step nurture pipeline + free Quiz lead magnet.",
+      "stage": "Closed Won / Onboarding",
+      "auditScore": 84,
+      "dealValue": 4000,
+      "assignedTo": "user-admin",
+      "lastContactDate": "2026-08-31T17:00:00.000Z",
+      "notes": "Signed 90-Day Growth Package! Onboarding form sent and funnel build kickoff scheduled.",
+      "tags": [
+        "Closed Won",
+        "Active Client"
+      ]
+    }
+  ],
+  "audits": [
+    {
+      "id": "id_1788203215036_s7bififdc",
+      "createdAt": "2026-08-31T19:06:55.036Z",
+      "updatedAt": "2026-08-31T19:06:55.036Z",
+      "name": "Alex Rivera",
+      "email": "alex@scalingcoaches.com",
+      "niche": "B2B Sales & Growth Coaches",
+      "offerPrice": 4500,
+      "monthlyLeads": 35,
+      "leadCaptureMethod": "Unstructured DMs",
+      "bookingSystem": "Manual",
+      "followUpCadence": "None",
+      "evaluation": {
+        "score": 27,
+        "grade": "D / Leaking (High Opportunity)",
+        "tierRecommendation": "Foundation",
+        "pillars": {
+          "traffic": {
+            "score": 12,
+            "max": 20,
+            "percentage": 60
+          },
+          "leadCapture": {
+            "score": 5,
+            "max": 20,
+            "percentage": 25
+          },
+          "nurturing": {
+            "score": 3,
+            "max": 20,
+            "percentage": 15
+          },
+          "booking": {
+            "score": 4,
+            "max": 20,
+            "percentage": 20
+          },
+          "followUp": {
+            "score": 3,
+            "max": 20,
+            "percentage": 15
+          }
+        },
+        "leaks": [
+          {
+            "pillar": "Lead Capture",
+            "severity": "Critical",
+            "title": "Direct-to-DM Traffic Drop-Off",
+            "description": "Your traffic is directed to unstructured DMs or static links. Over 80% of interested prospects leave without leaving their contact info.",
+            "fix": "Install a dedicated 2-step Quiz Funnel or VSL lead capture engine."
+          },
+          {
+            "pillar": "Lead Nurturing",
+            "severity": "High",
+            "title": "Zero Automated Nurture Pipeline",
+            "description": "Prospects who do not buy immediately on Day 0 are completely lost because there is no automated indoctrination sequence.",
+            "fix": "Deploy the 5-touch (Day 0/1/3/5/7) email sequence educating prospects on your framework."
+          },
+          {
+            "pillar": "Booking Flow",
+            "severity": "Medium",
+            "title": "Booking Friction & Missing Qualification",
+            "description": "Manual scheduling or unqualified booking links lead to low-ticket time wasters and high no-show rates (35-50%).",
+            "fix": "Implement an automated pre-call qualification survey with automated SMS reminders."
+          },
+          {
+            "pillar": "Follow-Up",
+            "severity": "High",
+            "title": "Post-Call Revenue Leak",
+            "description": "Valuable prospects who attend sales calls but do not close on the spot are not systematically re-engaged.",
+            "fix": "Connect a Kanban CRM with automated no-show and re-engagement workflows."
+          }
+        ],
+        "economics": {
+          "currentPrice": 4500,
+          "estimatedMonthlyLostRevenue": 13500,
+          "estimatedYearlyLostRevenue": 162000,
+          "potentialExtraClientsPerMonth": 3,
+          "projected3ClientGain": 13500
+        },
+        "summary": "Your funnel scored 27/100. Your biggest bottleneck is Direct-to-DM Traffic Drop-Off. Fixing your lead capture and automated sequence could add ~$13,500/month in recovered high-ticket client revenue."
+      },
+      "score": 27
+    },
+    {
+      "id": "id_1788202886072_x71f0mbij",
+      "createdAt": "2026-08-31T19:01:26.072Z",
+      "updatedAt": "2026-08-31T19:01:26.072Z",
+      "name": "Dr. Sarah Jenkins",
+      "email": "sarah@executivemindset.com",
+      "niche": "Executive & Leadership Coaches",
+      "offerPrice": 5000,
+      "monthlyLeads": 40,
+      "trafficSource": "Organic Instagram & LinkedIn",
+      "leadCaptureMethod": "Direct Message (Unstructured)",
+      "bookingMethod": "Manual Linktree / Chat Links",
+      "followUpMethod": "Manual 1-time message",
+      "nurtureMethod": "None / sporadic",
+      "evaluation": {
+        "score": 27,
+        "grade": "D / Leaking (High Opportunity)",
+        "tierRecommendation": "Foundation",
+        "pillars": {
+          "traffic": {
+            "score": 12,
+            "max": 20,
+            "percentage": 60
+          },
+          "leadCapture": {
+            "score": 5,
+            "max": 20,
+            "percentage": 25
+          },
+          "nurturing": {
+            "score": 3,
+            "max": 20,
+            "percentage": 15
+          },
+          "booking": {
+            "score": 4,
+            "max": 20,
+            "percentage": 20
+          },
+          "followUp": {
+            "score": 3,
+            "max": 20,
+            "percentage": 15
+          }
+        },
+        "leaks": [
+          {
+            "pillar": "Lead Capture",
+            "severity": "Critical",
+            "title": "Direct-to-DM Traffic Drop-Off",
+            "description": "Your traffic is directed to unstructured DMs or static links. Over 80% of interested prospects leave without leaving their contact info.",
+            "fix": "Install a dedicated 2-step Quiz Funnel or VSL lead capture engine."
+          },
+          {
+            "pillar": "Lead Nurturing",
+            "severity": "High",
+            "title": "Zero Automated Nurture Pipeline",
+            "description": "Prospects who do not buy immediately on Day 0 are completely lost because there is no automated indoctrination sequence.",
+            "fix": "Deploy the 5-touch (Day 0/1/3/5/7) email sequence educating prospects on your framework."
+          },
+          {
+            "pillar": "Booking Flow",
+            "severity": "Medium",
+            "title": "Booking Friction & Missing Qualification",
+            "description": "Manual scheduling or unqualified booking links lead to low-ticket time wasters and high no-show rates (35-50%).",
+            "fix": "Implement an automated pre-call qualification survey with automated SMS reminders."
+          },
+          {
+            "pillar": "Follow-Up",
+            "severity": "High",
+            "title": "Post-Call Revenue Leak",
+            "description": "Valuable prospects who attend sales calls but do not close on the spot are not systematically re-engaged.",
+            "fix": "Connect a Kanban CRM with automated no-show and re-engagement workflows."
+          }
+        ],
+        "economics": {
+          "currentPrice": 5000,
+          "estimatedMonthlyLostRevenue": 15000,
+          "estimatedYearlyLostRevenue": 180000,
+          "potentialExtraClientsPerMonth": 3,
+          "projected3ClientGain": 15000
+        },
+        "summary": "Your funnel scored 27/100. Your biggest bottleneck is Direct-to-DM Traffic Drop-Off. Fixing your lead capture and automated sequence could add ~$15,000/month in recovered high-ticket client revenue."
+      },
+      "score": 27
+    },
+    {
+      "id": "id_1788188100749_xfu3v9kd5",
+      "createdAt": "2026-08-31T14:55:00.749Z",
+      "updatedAt": "2026-08-31T14:55:00.749Z",
+      "name": "Dr. Rebecca Stone",
+      "email": "rebecca@stoneexecutive.com",
+      "phone": "+1 555-444-3322",
+      "niche": "Executive & Leadership Coach",
+      "offer": "CEO Transition Program",
+      "offerPrice": 8000,
+      "monthlyLeads": 50,
+      "monthlyBookedCalls": 6,
+      "leadSource": "Organic Social (LinkedIn/IG)",
+      "leadCaptureMethod": "Direct DM / Link in Bio",
+      "bookingSystem": "Manual Messaging / DM Links",
+      "nurtureMethod": "None / Manual Follow-up",
+      "followUpCadence": "Single follow up or none",
+      "biggestChallenge": "Losing 70% of leads before they book a call",
+      "evaluation": {
+        "score": 33,
+        "grade": "D / Leaking (High Opportunity)",
+        "tierRecommendation": "Foundation",
+        "pillars": {
+          "traffic": {
+            "score": 18,
+            "max": 20,
+            "percentage": 90
+          },
+          "leadCapture": {
+            "score": 5,
+            "max": 20,
+            "percentage": 25
+          },
+          "nurturing": {
+            "score": 3,
+            "max": 20,
+            "percentage": 15
+          },
+          "booking": {
+            "score": 4,
+            "max": 20,
+            "percentage": 20
+          },
+          "followUp": {
+            "score": 3,
+            "max": 20,
+            "percentage": 15
+          }
+        },
+        "leaks": [
+          {
+            "pillar": "Lead Capture",
+            "severity": "Critical",
+            "title": "Direct-to-DM Traffic Drop-Off",
+            "description": "Your traffic is directed to unstructured DMs or static links. Over 80% of interested prospects leave without leaving their contact info.",
+            "fix": "Install a dedicated 2-step Quiz Funnel or VSL lead capture engine."
+          },
+          {
+            "pillar": "Lead Nurturing",
+            "severity": "High",
+            "title": "Zero Automated Nurture Pipeline",
+            "description": "Prospects who do not buy immediately on Day 0 are completely lost because there is no automated indoctrination sequence.",
+            "fix": "Deploy the 5-touch (Day 0/1/3/5/7) email sequence educating prospects on your framework."
+          },
+          {
+            "pillar": "Booking Flow",
+            "severity": "Medium",
+            "title": "Booking Friction & Missing Qualification",
+            "description": "Manual scheduling or unqualified booking links lead to low-ticket time wasters and high no-show rates (35-50%).",
+            "fix": "Implement an automated pre-call qualification survey with automated SMS reminders."
+          },
+          {
+            "pillar": "Follow-Up",
+            "severity": "High",
+            "title": "Post-Call Revenue Leak",
+            "description": "Valuable prospects who attend sales calls but do not close on the spot are not systematically re-engaged.",
+            "fix": "Connect a Kanban CRM with automated no-show and re-engagement workflows."
+          }
+        ],
+        "economics": {
+          "currentPrice": 8000,
+          "estimatedMonthlyLostRevenue": 32000,
+          "estimatedYearlyLostRevenue": 384000,
+          "potentialExtraClientsPerMonth": 4,
+          "projected3ClientGain": 24000
+        },
+        "summary": "Your funnel scored 33/100. Your biggest bottleneck is Direct-to-DM Traffic Drop-Off. Fixing your lead capture and automated sequence could add ~$32,000/month in recovered high-ticket client revenue."
+      },
+      "score": 33
+    }
+  ],
+  "bookings": [
+    {
+      "id": "id_1788203970314_sx1tjsp3r",
+      "createdAt": "2026-08-31T19:19:30.314Z",
+      "updatedAt": "2026-08-31T19:19:30.314Z",
+      "name": "awbek,",
+      "email": "hhmbewmhjwecew@123",
+      "phone": "",
+      "website": "",
+      "niche": "Executive & Leadership Coach",
+      "offer": "High-Ticket Coaching Program",
+      "offerPrice": 4000,
+      "monthlyRevenue": "$10,000 - $25,000 / mo",
+      "biggestBottleneck": "Losing leads in DMs & poor follow-up after calls",
+      "date": "2026-09-01",
+      "time": "11:30",
+      "timezone": "America/New_York (EST)",
+      "bookingDateTime": "2026-09-01T11:30:00",
+      "status": "confirmed",
+      "notes": ""
+    },
+    {
+      "id": "id_1788188100815_wzpbtgvly",
+      "createdAt": "2026-08-31T14:55:00.815Z",
+      "updatedAt": "2026-08-31T14:55:00.815Z",
+      "name": "Dr. Rebecca Stone",
+      "email": "rebecca@stoneexecutive.com",
+      "phone": "",
+      "website": "",
+      "niche": "Executive & Leadership Coach",
+      "offer": "CEO Transition Program",
+      "offerPrice": 8000,
+      "monthlyRevenue": "$10,000 - $25,000",
+      "biggestBottleneck": "Lost leads & manual follow-up",
+      "date": "2026-09-03",
+      "time": "14:30",
+      "timezone": "America/New_York (EST)",
+      "bookingDateTime": "2026-09-03T14:30:00",
+      "status": "confirmed",
+      "notes": ""
+    }
+  ],
+  "sequences": [
+    {
+      "id": "seq-day-0",
+      "day": 0,
+      "title": "Audit Delivery & Solution Reveal",
+      "trigger": "Audit Scorecard Completed",
+      "channel": "Email + SMS",
+      "emailSubject": "Your Coach Acquisition Diagnostic Scorecard: {{score}}/100 [Action Plan]",
+      "emailBody": "Hey {{name}},\n\nHere is your custom Coach Client Acquisition Scorecard:\n\n📊 Overall Health Score: {{score}}/100\n🚨 Primary Bottleneck: {{primaryBottleneck}}\n💸 Estimated Monthly Revenue Leaked: ${{lostRevenue}}\n\nMost {{niche}} coaches we work with believe they have a \"traffic problem\", when in reality over 70% of potential high-ticket clients slip through the cracks due to broken lead capture and zero automated follow-up.\n\nWe prepared a breakdown of how to fix this leak and turn your current attention into qualified $1,000–$10,000+ client bookings.\n\n👉 Review your personalized action plan here: {{diagnosticUrl}}\n\nTo your growth,\nMohammad Galib Khan & The NexLeads Team",
+      "smsBody": "Hey {{name}}, your Coach Funnel Audit score is in ({{score}}/100). We detected leaks costing ~ ${{lostRevenue}}/mo. Check your email or tap here: {{diagnosticUrl}}",
+      "status": "active"
+    },
+    {
+      "id": "seq-day-1",
+      "day": 1,
+      "title": "Why Coaches Lose Leads After 1st Interaction",
+      "trigger": "1 Day After Audit",
+      "channel": "Email",
+      "emailSubject": "The #1 reason 85% of your coaching inquiries never book a call",
+      "emailBody": "Hey {{name}},\n\nYesterday you checked your funnel health score ({{score}}/100).\n\nHere is a harsh reality of high-ticket coaching:\n\nWhen a prospect lands on your profile or website, only 3% to 5% are ready to buy TODAY. The other 95% are interested, but they need trust, proof, and consistency.\n\nIf your only call-to-action is \"DM me\" or \"Book a call\", 95% of your traffic bounces and NEVER comes back.\n\nThat means you are paying with your time (and ads) to warm up leads for your competitors.\n\nTomorrow, I'll show you the exact 7-Step Acquisition Funnel we use to nurture the \"not-ready-today\" leads automatically until they book.\n\nTalk soon,\nMohammad Galib Khan",
+      "status": "active"
+    },
+    {
+      "id": "seq-day-3",
+      "day": 3,
+      "title": "Anatomy of an Automated Nurture Funnel",
+      "trigger": "3 Days After Audit",
+      "channel": "Email",
+      "emailSubject": "Case Study: How Julian added $30k/mo with zero extra ad spend",
+      "emailBody": "Hey {{name}},\n\nInstead of chasing people in Instagram or LinkedIn DMs for 3 hours every day, what if your client acquisition ran like clockwork?\n\nHere is the breakdown of Julian's system (B2B Sales Coach):\n1. High-Value Diagnostic Lead Magnet (Filters qualified prospects)\n2. Automated Qualification Gate (Filters out low budget inquiries)\n3. Day 0-7 Pre-Call Indoctrination (Educates before the call)\n4. Automated SMS Reminders (Boosted show-up rate from 55% to 92%)\n\nResult: 6 extra high-ticket clients in 45 days.\n\nReady to see what this would look like mapped out for your {{offer}}?\n\n👉 Book your 1-on-1 Strategy Session: {{bookingUrl}}",
+      "status": "active"
+    },
+    {
+      "id": "seq-day-5",
+      "day": 5,
+      "title": "The Real Math Behind Systematic Follow-Up",
+      "trigger": "5 Days After Audit",
+      "channel": "Email + SMS",
+      "emailSubject": "The economics of 3 extra clients per month (Math inside)",
+      "emailBody": "Hey {{name}},\n\nLet's look at simple unit economics for your coaching business:\n\n• Your average offer price: ${{offerPrice}}\n• If our acquisition system helps you convert just 3 additional clients each month:\n→ That is ${{tripleClientRevenue}} in monthly revenue (${{yearlyClientRevenue}} per year).\n\nNotice that you don't need 100,000 followers or complex 40-step funnels.\nYou just need a tight system: Attract → Capture → Nurture → Qualify → Book → Follow Up → Convert.\n\nLet's build your machine.\n\n👉 Pick a time on our calendar: {{bookingUrl}}",
+      "smsBody": "{{name}}, if your {{offer}} converts just 2-3 more clients/mo with automated follow-up, that's +${{tripleClientRevenue}}/mo. Grab 15 min to review your roadmap: {{bookingUrl}}",
+      "status": "active"
+    },
+    {
+      "id": "seq-day-7",
+      "day": 7,
+      "title": "Final VIP Invitation: 90-Day Acquisition Sprint",
+      "trigger": "7 Days After Audit",
+      "channel": "Email",
+      "emailSubject": "Closing your audit file for {{name}} (Last call)",
+      "emailBody": "Hey {{name}},\n\nWe are closing out this week's batch of client acquisition audits.\n\nIf you are serious about taking your coaching business to predictable $20k–$50k+ months without managing complicated tech yourself, we'd love to install this entire system for you.\n\nWe handle the strategy, landing pages, diagnostic quiz, CRM pipeline, email/SMS automations, and sales call optimization.\n\nClick below to grab one of the remaining strategy slots for this week:\n\n👉 {{bookingUrl}}\n\nAll the best,\nMohammad Galib Khan & The NexLeads Team",
+      "status": "active"
+    }
+  ],
+  "outreachTemplates": [
+    {
+      "id": "template-ig-dm",
+      "platform": "Instagram DM",
+      "name": "Observation -> Problem -> Opportunity -> CTA (Instagram)",
+      "framework": "Observation → Problem → Opportunity → CTA",
+      "template": "Hey {{name}}, I came across your {{niche}} coaching page and noticed you're sending Instagram traffic directly toward DMs with no automated capture system.\n\nYour offer ({{offer}}) looks super strong, but without a dedicated diagnostic quiz or nurture sequence, you're likely losing 70%+ of people who aren't ready to buy in the first 5 minutes.\n\nI recorded a 2-minute video breakdown showing the exact 7-step acquisition funnel we use to turn warm followers into $3,000–$10,000 clients on autopilot.\n\nWant me to send the video over?"
+    },
+    {
+      "id": "template-linkedin",
+      "platform": "LinkedIn InMail",
+      "name": "Executive & B2B Pipeline Framework",
+      "framework": "Observation → Problem → Opportunity → CTA",
+      "template": "Hi {{name}},\n\nEnjoyed your recent post on leadership transformation. Noticed you're actively generating inquiries, but relying on manual LinkedIn messaging and direct booking links.\n\nFor high-ticket {{niche}} offers around {{offerPrice}}, prospects usually need a structured diagnostic step before getting on the phone, otherwise no-show rates stay high.\n\nWe put together a custom Funnel Audit Map for your business showing how to add an automated pre-call qualification engine to double your qualified show-up rate.\n\nWould you be open to seeing the 1-page map?"
+    },
+    {
+      "id": "template-youtube",
+      "platform": "YouTube & Cold Email",
+      "name": "Long-Form Traffic Monetization",
+      "framework": "Observation → Problem → Opportunity → CTA",
+      "template": "Hey {{name}},\n\nHuge fan of your content on YouTube. You have incredible depth in the {{niche}} space.\n\nI noticed your video descriptions currently link directly to a static Google Doc / single form without an automated lead capture or retargeting sequence.\n\nWith your viewership, installing a multi-step quiz funnel + Day 0/1/3/5/7 nurture could easily capture an additional 15-25 qualified application calls every month.\n\nI mapped out a quick blueprint of what this client acquisition machine would look like for you. Mind if I share the link?"
+    }
+  ],
+  "interactions": [
+    {
+      "id": "id_1788203970322_q00tlqoff",
+      "createdAt": "2026-08-31T19:19:30.322Z",
+      "updatedAt": "2026-08-31T19:19:30.322Z",
+      "leadId": "id_1788203970319_ik8p49bqg",
+      "type": "CALL_BOOKED",
+      "title": "Booked Strategy Session for 2026-09-01 at 11:30 (America/New_York (EST))",
+      "details": "Pre-call survey: Offer $4000, Revenue: $10,000 - $25,000 / mo, Bottleneck: Losing leads in DMs & poor follow-up after calls",
+      "timestamp": "2026-08-31T19:19:30.322Z"
+    },
+    {
+      "id": "id_1788203215038_8urorc6h0",
+      "createdAt": "2026-08-31T19:06:55.038Z",
+      "updatedAt": "2026-08-31T19:06:55.038Z",
+      "leadId": "id_1788203215037_xxyzk26qo",
+      "type": "AUDIT_COMPLETED",
+      "title": "Completed Funnel Diagnostic (Score: 27/100)",
+      "details": "Your funnel scored 27/100. Your biggest bottleneck is Direct-to-DM Traffic Drop-Off. Fixing your lead capture and automated sequence could add ~$13,500/month in recovered high-ticket client revenue.",
+      "timestamp": "2026-08-31T19:06:55.038Z"
+    },
+    {
+      "id": "id_1788202886075_rwdkp92hc",
+      "createdAt": "2026-08-31T19:01:26.075Z",
+      "updatedAt": "2026-08-31T19:01:26.075Z",
+      "leadId": "id_1788202886074_yiujxjj90",
+      "type": "AUDIT_COMPLETED",
+      "title": "Completed Funnel Diagnostic (Score: 27/100)",
+      "details": "Your funnel scored 27/100. Your biggest bottleneck is Direct-to-DM Traffic Drop-Off. Fixing your lead capture and automated sequence could add ~$15,000/month in recovered high-ticket client revenue.",
+      "timestamp": "2026-08-31T19:01:26.075Z"
+    },
+    {
+      "id": "id_1788201350622_y6h0nqbt7",
+      "createdAt": "2026-08-31T18:35:50.622Z",
+      "updatedAt": "2026-08-31T18:35:50.622Z",
+      "leadId": "lead-4",
+      "type": "STAGE_CHANGED",
+      "title": "Moved from \"Prospect Researched\" to \"Outreach Sent\"",
+      "details": "Stage updated to Outreach Sent",
+      "timestamp": "2026-08-31T18:35:50.621Z"
+    },
+    {
+      "id": "id_1788201349224_az2zg67cl",
+      "createdAt": "2026-08-31T18:35:49.224Z",
+      "updatedAt": "2026-08-31T18:35:49.224Z",
+      "leadId": "lead-4",
+      "type": "STAGE_CHANGED",
+      "title": "Moved from \"Proposal Sent\" to \"Prospect Researched\"",
+      "details": "Stage updated to Prospect Researched",
+      "timestamp": "2026-08-31T18:35:49.224Z"
+    },
+    {
+      "id": "id_1788201346008_jk6eohgz3",
+      "createdAt": "2026-08-31T18:35:46.008Z",
+      "updatedAt": "2026-08-31T18:35:46.008Z",
+      "leadId": "lead-4",
+      "type": "STAGE_CHANGED",
+      "title": "Moved from \"Call Completed\" to \"Proposal Sent\"",
+      "details": "Stage updated to Proposal Sent",
+      "timestamp": "2026-08-31T18:35:46.007Z"
+    },
+    {
+      "id": "id_1788201344445_hvdln7xj6",
+      "createdAt": "2026-08-31T18:35:44.445Z",
+      "updatedAt": "2026-08-31T18:35:44.445Z",
+      "leadId": "lead-4",
+      "type": "STAGE_CHANGED",
+      "title": "Moved from \"Call Booked\" to \"Call Completed\"",
+      "details": "Stage updated to Call Completed",
+      "timestamp": "2026-08-31T18:35:44.444Z"
+    },
+    {
+      "id": "id_1788188100828_56docp13b",
+      "createdAt": "2026-08-31T14:55:00.828Z",
+      "updatedAt": "2026-08-31T14:55:00.828Z",
+      "leadId": "id_1788188100754_09j5r4o7w",
+      "type": "SEQUENCE_DISPATCHED",
+      "title": "Dispatched Sequence Day 0: \"Audit Delivery & Solution Reveal\"",
+      "details": "Subject: Your Coach Acquisition Diagnostic Scorecard: 33/100 [Action Plan]\nChannel: Email + SMS",
+      "timestamp": "2026-08-31T14:55:00.828Z"
+    },
+    {
+      "id": "id_1788188100819_cnngec645",
+      "createdAt": "2026-08-31T14:55:00.819Z",
+      "updatedAt": "2026-08-31T14:55:00.819Z",
+      "leadId": "id_1788188100754_09j5r4o7w",
+      "type": "CALL_BOOKED",
+      "title": "Booked Strategy Session for 2026-09-03 at 14:30 (America/New_York (EST))",
+      "details": "Pre-call survey: Offer $8000, Revenue: $10,000 - $25,000, Bottleneck: Lost leads & manual follow-up",
+      "timestamp": "2026-08-31T14:55:00.819Z"
+    },
+    {
+      "id": "id_1788188100755_hjf3vkklq",
+      "createdAt": "2026-08-31T14:55:00.755Z",
+      "updatedAt": "2026-08-31T14:55:00.755Z",
+      "leadId": "id_1788188100754_09j5r4o7w",
+      "type": "AUDIT_COMPLETED",
+      "title": "Completed Funnel Diagnostic (Score: 33/100)",
+      "details": "Your funnel scored 33/100. Your biggest bottleneck is Direct-to-DM Traffic Drop-Off. Fixing your lead capture and automated sequence could add ~$32,000/month in recovered high-ticket client revenue.",
+      "timestamp": "2026-08-31T14:55:00.755Z"
+    }
+  ]
+}
