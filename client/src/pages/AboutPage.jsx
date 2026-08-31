@@ -160,15 +160,23 @@ export default function AboutPage() {
         </div>
 
         <div className="lg:col-span-5 bg-gradient-to-b from-slate-900 via-navy-950 to-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-5 text-center shadow-2xl">
-          <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-emerald-400 to-cyan-400 p-[2px] mx-auto">
-            <div className="w-full h-full bg-[#070b14] rounded-full flex items-center justify-center">
-              <Quote className="w-8 h-8 text-emerald-400" />
+          {/* Founder Portrait Photo */}
+          <div className="relative w-36 h-36 sm:w-44 sm:h-44 mx-auto">
+            <div className="w-full h-full rounded-3xl bg-gradient-to-tr from-emerald-400 via-teal-500 to-cyan-400 p-[2.5px] shadow-2xl shadow-emerald-500/25">
+              <img
+                src="/founder.jpg"
+                alt="Mohammad Galib Khan — Founder"
+                className="w-full h-full object-cover rounded-[22px] object-top shadow-inner"
+              />
+            </div>
+            <div className="absolute -bottom-2 -right-2 bg-emerald-500 text-navy-950 p-1.5 rounded-full border-2 border-[#070b14] shadow-md">
+              <Sparkles className="w-4 h-4 fill-current" />
             </div>
           </div>
           
           <div className="space-y-1">
-            <h3 className="text-lg font-black text-white">Mohammad Galib Khan</h3>
-            <p className="text-xs text-emerald-400 font-semibold uppercase tracking-wider">
+            <h3 className="text-xl font-black text-white">Mohammad Galib Khan</h3>
+            <p className="text-xs text-emerald-400 font-bold uppercase tracking-wider">
               Founder & Lead Acquisition Strategist
             </p>
           </div>
@@ -177,7 +185,7 @@ export default function AboutPage() {
             “Don’t sell funnels. Sell client acquisition systems. Don’t sell automation. Sell consistent follow-up. Don’t sell websites. Sell conversion. Sell the business outcome.”
           </p>
 
-          <div className="text-[11px] text-slate-400">
+          <div className="text-[11px] text-slate-400 font-medium">
             Client Acquisition Infrastructure Built to Scale
           </div>
         </div>
