@@ -1,4 +1,6 @@
-const API_BASE = '/api';
+const LIVE_RENDER_API = 'https://funnel-aquisition.onrender.com/api';
+
+const API_BASE = (import.meta.env.VITE_API_URL || (import.meta.env.PROD ? LIVE_RENDER_API : '/api')).replace(/\/+$/, '');
 
 function getAuthHeader() {
   const token = localStorage.getItem('apex_auth_token');
@@ -6,13 +8,15 @@ function getAuthHeader() {
 }
 
 async function request(endpoint, options = {}) {
+  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
   const headers = {
     'Content-Type': 'application/json',
     ...getAuthHeader(),
     ...(options.headers || {})
   };
 
-  const response = await fetch(`${API_BASE}${endpoint}`, {
+  const url = `${API_BASE}${cleanEndpoint}`;
+  const response = await fetch(url, {
     ...options,
     headers
   });
