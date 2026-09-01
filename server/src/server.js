@@ -42,13 +42,26 @@ app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 // 4. Input Sanitization (XSS and prototype pollution protection)
 app.use(sanitizeInputs);
 
-// 5. Health Check
+// 5. Health & Database Status Check
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'online',
     service: 'NexLeads Coach Client Acquisition Agency API',
     timestamp: new Date().toISOString(),
     version: '1.0.0'
+  });
+});
+
+app.get('/api/db-status', (req, res) => {
+  const leadsCount = dbStore.get('leads').length;
+  const auditsCount = dbStore.get('audits').length;
+  const bookingsCount = dbStore.get('bookings').length;
+  res.json({
+    databaseStatus: 'Active & Storing Records',
+    totalLeadsInPipeline: leadsCount,
+    totalAuditsCompleted: auditsCount,
+    totalBookingsMade: bookingsCount,
+    timestamp: new Date().toISOString()
   });
 });
 
