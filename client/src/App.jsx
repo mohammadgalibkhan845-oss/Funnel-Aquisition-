@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -10,17 +10,19 @@ import CRMPage from './pages/CRMPage';
 import SequencesPage from './pages/SequencesPage';
 import OutreachPage from './pages/OutreachPage';
 import AnalyticsPage from './pages/AnalyticsPage';
-import SolutionsPage from './pages/SolutionsPage';
 import ServicesPage from './pages/ServicesPage';
 import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
 import AIChatWidget from './components/AIChatWidget';
 
 export default function App() {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
   return (
-    <div className="min-h-screen flex flex-col bg-[#070b14] text-slate-100 selection:bg-emerald-500 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#0A0710] text-[#FAF6EF] selection:bg-[#FF4468] selection:text-[#0A0710]">
       <Navbar />
-      <main className="flex-1 pt-20 sm:pt-24">
+      <main className="flex-1">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/services" element={<ServicesPage />} />
@@ -32,12 +34,11 @@ export default function App() {
           <Route path="/sequences" element={<SequencesPage />} />
           <Route path="/outreach" element={<OutreachPage />} />
           <Route path="/analytics" element={<AnalyticsPage />} />
-          <Route path="/solutions" element={<SolutionsPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
-      <Footer />
+      {!isHomePage && <Footer />}
       <AIChatWidget />
     </div>
   );

@@ -1,23 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { 
-  Sparkles, 
-  Flame, 
-  ArrowRight, 
-  Calendar, 
-  CheckCircle2, 
-  Zap, 
-  Target, 
-  TrendingUp, 
-  Layers, 
-  Users, 
-  ShieldCheck, 
-  ExternalLink 
-} from 'lucide-react';
-import LostRevenueCalculator from '../components/LostRevenueCalculator';
-import CompleteMachineDiagram from '../components/CompleteMachineDiagram';
-import OfferTiers from '../components/OfferTiers';
-import CaseStudies from '../components/CaseStudies';
+import React, { useState, useRef } from 'react';
+import { Flame, ArrowRight, Calendar, ExternalLink } from 'lucide-react';
 import { api } from '../services/api';
 
 const CALENDLY_URL = 'https://calendly.com/muhammadarish/free-funnel-client-acquisition-audit';
@@ -40,7 +22,6 @@ export default function HomePage() {
     booking: 0,
     followup: 0
   });
-  const [overallScore, setOverallScore] = useState(0);
   const [displayedOverall, setDisplayedOverall] = useState(0);
   const [weakestPillar, setWeakestPillar] = useState('');
   const auditRef = useRef(null);
@@ -49,7 +30,7 @@ export default function HomePage() {
     e.preventDefault();
     setFormState('scanning');
 
-    // Calculate score logic from template
+    // Calculate score logic directly from uploaded specification
     const leadsScoreMap = { low: 38, mid: 58, high: 78, top: 94 };
     const captureScoreMap = { dm: 42, form: 76, referral: 82, ads: 64, mixed: 70 };
     
@@ -105,7 +86,7 @@ export default function HomePage() {
         leadCaptureMethod: formData.source,
         biggestChallenge: formData.challenge,
         calculatedScore: overall
-      }).catch((err) => console.log('Background lead save notice:', err));
+      }).catch(() => {});
     } catch (e) {
       // Ignored for immediate responsive UI
     }
@@ -113,7 +94,6 @@ export default function HomePage() {
     // Transition after 1600ms scan
     setTimeout(() => {
       setScores(calculatedScores);
-      setOverallScore(overall);
       setWeakestPillar(labels[lowestKey]);
       setFormState('results');
 
@@ -141,14 +121,14 @@ export default function HomePage() {
   };
 
   return (
-    <div className="relative">
+    <div className="relative min-h-screen bg-[#0A0710] text-[#FAF6EF]">
       {/* Background Animated Gradient Blobs */}
       <div className="blob blob1" />
       <div className="blob blob2" />
       <div className="blob blob3" />
 
       {/* Top Marquee */}
-      <div className="marquee">
+      <div className="marquee mt-16 sm:mt-20">
         <div className="marquee-track">
           <span>FREE FUNNEL AUDIT</span>
           <span>90 SECONDS</span>
@@ -164,7 +144,7 @@ export default function HomePage() {
       <div className="max-w-[1100px] mx-auto px-5 sm:px-8 relative z-10">
 
         {/* HERO SECTION */}
-        <section className="pt-20 sm:pt-28 pb-16">
+        <section className="pt-16 sm:pt-24 pb-16">
           <h1 className="text-4xl sm:text-7xl lg:text-[84px] font-black max-w-[920px] mb-8 leading-[0.98] tracking-tight">
             Your funnel has<br />a leak.<br />
             <span className="text-transparent font-black" style={{ WebkitTextStroke: '1.5px var(--dim)', color: 'transparent' }}>
@@ -498,70 +478,6 @@ export default function HomePage() {
 
             </div>
           </div>
-        </section>
-
-        {/* ECONOMIC VALUE CALCULATOR */}
-        <section className="py-20 border-t border-white/5">
-          <LostRevenueCalculator />
-        </section>
-
-        {/* COMPLETE ACQUISITION MACHINE DIAGRAM */}
-        <section className="py-20 border-t border-white/5">
-          <CompleteMachineDiagram />
-        </section>
-
-        {/* WHO WE ARE HIGHLIGHT (MOHAMMAD GALIB KHAN) */}
-        <section className="py-20 border-t border-white/5">
-          <div className="glass-panel p-8 sm:p-12 rounded-3xl border border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center shadow-2xl">
-            <div className="lg:col-span-8 space-y-4">
-              <div className="inline-flex items-center gap-2 text-xs font-bold text-[#FFA23D] uppercase tracking-widest">
-                <Users className="w-4 h-4" />
-                <span>Who We Are • NexLeads</span>
-              </div>
-              <h3 className="text-2xl sm:text-4xl font-extrabold text-white leading-tight">
-                Client Acquisition Infrastructure <span className="gradient-text">Built to Scale</span>
-              </h3>
-              <p className="text-sm sm:text-base text-[#B8ADC9] leading-relaxed">
-                Founded by <strong>Mohammad Galib Khan</strong> to help coaches and B2B founders break the cycle of manual DM chaos and build predictable, scalable client acquisition machines.
-              </p>
-              <div className="pt-2 flex flex-wrap gap-4">
-                <Link
-                  to="/who-we-are"
-                  className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs font-bold flex items-center gap-2 border border-white/10 transition-colors"
-                >
-                  <span>Read Full Story & Founder Profile</span>
-                  <ArrowRight className="w-4 h-4 text-[#FF4468]" />
-                </Link>
-                <a
-                  href={CALENDLY_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 rounded-full bg-gradient-to-r from-[#FF4468] to-[#FFA23D] text-[#0A0710] text-xs font-bold flex items-center gap-2"
-                >
-                  <Calendar className="w-4 h-4" />
-                  <span>Book on Calendly</span>
-                </a>
-              </div>
-            </div>
-
-            <div className="lg:col-span-4 bg-[#160D24] p-6 rounded-2xl border border-white/10 space-y-3 text-center">
-              <div className="text-4xl font-black text-[#D4FF3D] font-mono">127+</div>
-              <div className="text-xs font-bold text-white uppercase tracking-wider">Founders & Coaches Scaled</div>
-              <p className="text-xs text-[#B8ADC9] leading-relaxed">
-                $4.2M+ total pipeline revenue generated across verified client funnels.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* VERIFIED CASE STUDIES */}
-        <section className="py-20 border-t border-white/5">
-          <CaseStudies />
-        </section>
-
-        {/* OFFER TIERS */}
-        <section className="py-20 border-t border-white/5">
-          <OfferTiers />
         </section>
 
       </div>
