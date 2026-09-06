@@ -473,8 +473,6 @@ export default function AuditPage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
                 href="https://calendly.com/muhammadarish/free-funnel-client-acquisition-audit"
-                target="_blank"
-                rel="noopener noreferrer"
                 className="btn btn-primary w-full sm:w-auto px-8 py-3.5 text-sm flex items-center justify-center gap-2"
               >
                 <Calendar className="w-4 h-4" />

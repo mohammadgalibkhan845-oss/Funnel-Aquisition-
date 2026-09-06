@@ -160,8 +160,6 @@ export default function HomePage() {
         {/* Book a Call Button at Top Right */}
         <a
           href={CALENDLY_URL}
-          target="_blank"
-          rel="noopener noreferrer"
           className="btn btn-primary text-xs sm:text-sm px-5 sm:px-6 py-2.5 shadow-lg shadow-[#FF4468]/30 font-['Bricolage_Grotesque'] flex items-center gap-2"
         >
           <Calendar className="w-4 h-4" />
@@ -488,13 +486,11 @@ export default function HomePage() {
                   <div className="pt-2">
                     <a
                       href={CALENDLY_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
                       className="btn btn-primary w-full text-center flex items-center justify-center gap-2"
                     >
                       <Calendar className="w-5 h-5" />
                       <span>Book My Free Strategy Call</span>
-                      <ExternalLink className="w-4 h-4" />
+                      <ArrowRight className="w-4 h-4" />
                     </a>
                     <p className="micro text-center mt-3">
                       30 minutes · No pitch · Just the gap and the fix
