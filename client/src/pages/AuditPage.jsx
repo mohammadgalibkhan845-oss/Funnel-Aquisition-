@@ -463,29 +463,32 @@ export default function AuditPage() {
           )}
 
           {/* Direct CTA: Book Call */}
-          <div className="p-8 rounded-3xl bg-gradient-to-r from-emerald-950/50 via-slate-900 to-cyan-950/50 border border-emerald-500/40 text-center space-y-5 shadow-2xl">
-            <h3 className="text-2xl font-extrabold text-white">
+          <div className="p-8 rounded-3xl bg-gradient-to-r from-[#160D24] via-[#2A1338] to-[#160D24] border border-[#FF4468]/30 text-center space-y-5 shadow-2xl">
+            <h3 className="text-2xl font-extrabold text-white font-['Bricolage_Grotesque']">
               Ready to Plug These Leaks and Add +${report.economics.projected3ClientGain.toLocaleString()}/mo?
             </h3>
-            <p className="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto">
+            <p className="text-xs sm:text-sm text-[#B8ADC9] max-w-xl mx-auto">
               Book a 1-on-1 Strategy Session with our acquisition architects. We will walk through your custom roadmap and show you how we build this entire system for you.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link
-                to={`/book?name=${encodeURIComponent(formData.name)}&email=${encodeURIComponent(formData.email)}&price=${formData.offerPrice}&niche=${encodeURIComponent(formData.niche)}`}
-                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-navy-950 font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25"
+              <a
+                href="https://calendly.com/muhammadarish/free-funnel-client-acquisition-audit"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary w-full sm:w-auto px-8 py-3.5 text-sm flex items-center justify-center gap-2"
               >
                 <Calendar className="w-4 h-4" />
-                <span>Book 1-on-1 Roadmap Session</span>
+                <span>Book Free Strategy Call (Calendly)</span>
                 <ArrowRight className="w-4 h-4" />
-              </Link>
+              </a>
               <button
                 onClick={() => setReport(null)}
-                className="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold"
+                className="px-5 py-3 rounded-full bg-white/10 hover:bg-white/15 text-slate-300 text-xs font-bold"
               >
                 Re-take Diagnostic
               </button>
             </div>
+            <p className="text-[11px] text-[#B8ADC9]">30 minutes · No pitch · Just the gap and the fix</p>
           </div>
 
         </div>

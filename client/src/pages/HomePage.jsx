@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Sparkles, 
@@ -6,365 +6,579 @@ import {
   ArrowRight, 
   Calendar, 
   CheckCircle2, 
-  Play, 
+  Zap, 
+  Target, 
+  TrendingUp, 
+  Layers, 
   Users, 
   ShieldCheck, 
-  DollarSign, 
-  BarChart3, 
-  TrendingUp, 
-  MessageSquare, 
-  Clock, 
-  Zap, 
-  Target,
-  ChevronDown,
-  Layers
+  ExternalLink 
 } from 'lucide-react';
 import LostRevenueCalculator from '../components/LostRevenueCalculator';
 import CompleteMachineDiagram from '../components/CompleteMachineDiagram';
 import OfferTiers from '../components/OfferTiers';
 import CaseStudies from '../components/CaseStudies';
+import { api } from '../services/api';
 
-const niches = [
-  { name: 'Executive & Leadership Coaches', avgPrice: '$5,000–$15,000', pain: 'High authority on LinkedIn, but manual messaging causes leads to bounce before booking.' },
-  { name: 'B2B Sales & Growth Coaches', avgPrice: '$4,000–$12,000', pain: '45-day sales cycles and 40% no-show rates without pre-call indoctrination.' },
-  { name: 'Health, Wellness & Fitness Coaches', avgPrice: '$2,500–$6,000', pain: '3+ hours daily replying to unstructured Instagram DMs with 80% ghosting.' },
-  { name: 'Mindset & Transformation Coaches', avgPrice: '$3,000–$8,000', pain: 'Linktree links with zero automated qualification or Day 0-7 nurture sequences.' },
-  { name: 'Business & Agency Coaches', avgPrice: '$6,000–$20,000', pain: 'Strong YouTube content, but missing multi-channel retargeting and CRM pipeline.' },
-  { name: 'Relationship & Life Coaches', avgPrice: '$2,500–$5,000', pain: 'Warm followers vanish because no automated quiz or scorecard captures their details.' },
-];
-
-const faqs = [
-  {
-    q: 'Why not just hire a website designer or buy GoHighLevel templates?',
-    a: 'Websites and static templates don’t acquire clients. Most agencies build pretty pages that don’t convert. We build the entire acquisition infrastructure: diagnostic lead magnets, automated qualification gates, multi-channel SMS reminders, Day 0–7 nurture sequences, and CRM pipeline tracking.'
-  },
-  {
-    q: 'How does the Free Coach Funnel Audit work?',
-    a: 'You answer 6 diagnostic questions regarding your traffic, lead capture, follow-up cadence, and offer economics. Our engine scores your funnel across 5 pillars (0-100%) and highlights your exact revenue leaks with an estimated monthly loss calculation.'
-  },
-  {
-    q: 'How quickly can the system be installed in my coaching business?',
-    a: 'Our 90-Day Roadmap delivers the core funnel, lead quiz, and CRM in Days 8–14. By Days 15–30, we initiate targeted outreach and launch the automated nurture workflows to drive immediate strategy calls.'
-  },
-  {
-    q: 'What coaching ticket sizes is this designed for?',
-    a: 'The system is engineered for high-ticket coaches charging roughly $1,000 to $10,000+ per client. At this price point, recovering just 2-3 extra clients per month pays for the entire infrastructure multiple times over.'
-  }
-];
+const CALENDLY_URL = 'https://calendly.com/muhammadarish/free-funnel-client-acquisition-audit';
 
 export default function HomePage() {
-  const [openFaq, setOpenFaq] = useState(null);
-  const [pitchOpen, setPitchOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    site: '',
+    leads: '',
+    source: '',
+    challenge: ''
+  });
+
+  const [formState, setFormState] = useState('idle'); // 'idle' | 'scanning' | 'results'
+  const [scores, setScores] = useState({
+    traffic: 0,
+    capture: 0,
+    nurture: 0,
+    booking: 0,
+    followup: 0
+  });
+  const [overallScore, setOverallScore] = useState(0);
+  const [displayedOverall, setDisplayedOverall] = useState(0);
+  const [weakestPillar, setWeakestPillar] = useState('');
+  const auditRef = useRef(null);
+
+  const handleAuditSubmit = async (e) => {
+    e.preventDefault();
+    setFormState('scanning');
+
+    // Calculate score logic from template
+    const leadsScoreMap = { low: 38, mid: 58, high: 78, top: 94 };
+    const captureScoreMap = { dm: 42, form: 76, referral: 82, ads: 64, mixed: 70 };
+    
+    const trafficScore = leadsScoreMap[formData.leads] || 50;
+    const captureScore = captureScoreMap[formData.source] || 55;
+    let nurtureScore = 82;
+    let bookingScore = 80;
+    let followupScore = 80;
+
+    if (formData.challenge === 'cold') {
+      nurtureScore = 35;
+      followupScore = 45;
+    } else if (formData.challenge === 'booking') {
+      bookingScore = 32;
+    } else if (formData.challenge === 'close') {
+      followupScore = 40;
+      bookingScore = 60;
+    } else if (formData.challenge === 'notenough') {
+      nurtureScore = 65;
+    }
+
+    const calculatedScores = {
+      traffic: trafficScore,
+      capture: captureScore,
+      nurture: nurtureScore,
+      booking: bookingScore,
+      followup: followupScore
+    };
+
+    const overall = Math.round(
+      Object.values(calculatedScores).reduce((a, b) => a + b, 0) / 5
+    );
+
+    const labels = {
+      traffic: 'Traffic',
+      capture: 'Lead Capture',
+      nurture: 'Nurturing',
+      booking: 'Booking',
+      followup: 'Follow-Up'
+    };
+
+    const lowestKey = Object.keys(calculatedScores).reduce((a, b) =>
+      calculatedScores[a] < calculatedScores[b] ? a : b
+    );
+
+    // Save lead to backend database in background
+    try {
+      api.submitAudit({
+        name: formData.name,
+        email: formData.email,
+        website: formData.site,
+        monthlyLeads: formData.leads === 'top' ? 60 : formData.leads === 'high' ? 35 : formData.leads === 'mid' ? 18 : 8,
+        leadCaptureMethod: formData.source,
+        biggestChallenge: formData.challenge,
+        calculatedScore: overall
+      }).catch((err) => console.log('Background lead save notice:', err));
+    } catch (e) {
+      // Ignored for immediate responsive UI
+    }
+
+    // Transition after 1600ms scan
+    setTimeout(() => {
+      setScores(calculatedScores);
+      setOverallScore(overall);
+      setWeakestPillar(labels[lowestKey]);
+      setFormState('results');
+
+      // Count up overall score animation
+      let cur = 0;
+      const interval = setInterval(() => {
+        cur += 2;
+        if (cur >= overall) {
+          cur = overall;
+          clearInterval(interval);
+        }
+        setDisplayedOverall(cur);
+      }, 20);
+    }, 1600);
+  };
+
+  const getScoreColor = (val) => {
+    if (val >= 75) return '#D4FF3D'; // Lime
+    if (val >= 50) return '#FFA23D'; // Tangerine
+    return '#FF4468'; // Flame
+  };
+
+  const scrollToAudit = () => {
+    auditRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
-    <div className="space-y-20 sm:space-y-28 pb-16">
-      
-      {/* 1. HERO SECTION */}
-      <section className="relative pt-12 sm:pt-20 lg:pt-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
-        {/* Glow backdrop */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 sm:w-[650px] h-96 sm:h-[650px] bg-gradient-to-tr from-emerald-500/15 to-cyan-500/15 rounded-full blur-3xl pointer-events-none -z-10" />
+    <div className="relative">
+      {/* Background Animated Gradient Blobs */}
+      <div className="blob blob1" />
+      <div className="blob blob2" />
+      <div className="blob blob3" />
 
-        <div className="space-y-6 max-w-4xl mx-auto">
-          
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-emerald-500/30 text-emerald-400 text-xs sm:text-sm font-bold shadow-lg shadow-emerald-500/10">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>Built for High-Ticket Coaches ($1k–$10k+ Offers)</span>
-          </div>
+      {/* Top Marquee */}
+      <div className="marquee">
+        <div className="marquee-track">
+          <span>FREE FUNNEL AUDIT</span>
+          <span>90 SECONDS</span>
+          <span>NO PITCH</span>
+          <span>5 PILLARS SCORED</span>
+          <span>FREE FUNNEL AUDIT</span>
+          <span>90 SECONDS</span>
+          <span>NO PITCH</span>
+          <span>5 PILLARS SCORED</span>
+        </div>
+      </div>
 
-          {/* Headline */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
-            Turn Your Coaching Expertise Into a <span className="gradient-text">Predictable Client Acquisition Machine</span>
+      <div className="max-w-[1100px] mx-auto px-5 sm:px-8 relative z-10">
+
+        {/* HERO SECTION */}
+        <section className="pt-20 sm:pt-28 pb-16">
+          <h1 className="text-4xl sm:text-7xl lg:text-[84px] font-black max-w-[920px] mb-8 leading-[0.98] tracking-tight">
+            Your funnel has<br />a leak.<br />
+            <span className="text-transparent font-black" style={{ WebkitTextStroke: '1.5px var(--dim)', color: 'transparent' }}>
+              Let's find it.
+            </span>
           </h1>
-
-          {/* Subheadline */}
-          <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-normal">
-            Stop losing 80% of your leads in manual DMs. We combine <strong>diagnostic quiz funnels</strong>, <strong>automated nurture</strong>, <strong>SMS reminders</strong>, and <strong>Kanban CRM pipelines</strong> to consistently book qualified high-ticket clients.
+          
+          <p className="text-lg sm:text-[19px] text-[#B8ADC9] max-w-[540px] mb-10 leading-relaxed font-normal">
+            Run a live audit across five pillars — traffic, capture, nurturing, booking, follow-up — and see exactly where coaching leads disappear.
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <Link
-              to="/audit"
-              className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-navy-950 font-extrabold text-base flex items-center justify-center gap-2.5 shadow-xl shadow-emerald-500/25 hover:opacity-95 active:scale-98 transition-all"
-            >
-              <Flame className="w-5 h-5 text-navy-950" />
-              <span>Get Your Free Funnel Audit</span>
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-
-            <Link
-              to="/book"
-              className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-white font-bold text-base border border-slate-700 flex items-center justify-center gap-2 transition-all"
-            >
-              <Calendar className="w-5 h-5 text-cyan-400" />
-              <span>Book Strategy Session</span>
-            </Link>
-          </div>
-
-          {/* Trust Metrics Bar */}
-          <div className="pt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto text-left">
-            <div className="p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800">
-              <div className="text-2xl font-black text-white font-mono">88.5%</div>
-              <div className="text-xs text-emerald-400 font-semibold">Avg. Show-Up Rate</div>
-            </div>
-            <div className="p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800">
-              <div className="text-2xl font-black text-white font-mono">+$24k/mo</div>
-              <div className="text-xs text-cyan-400 font-semibold">Avg. Client Revenue Gain</div>
-            </div>
-            <div className="p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800">
-              <div className="text-2xl font-black text-white font-mono">90 Days</div>
-              <div className="text-xs text-purple-400 font-semibold">Full System Installation</div>
-            </div>
-            <div className="p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800">
-              <div className="text-2xl font-black text-white font-mono">0 Manual DMs</div>
-              <div className="text-xs text-amber-400 font-semibold">Automated Nurture</div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 2. THE 30-SECOND AGENCY MESSAGE BANNER */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-emerald-950/40 via-slate-900 to-navy-950 border border-emerald-500/30 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-400">
-              <MessageSquare className="w-4 h-4" />
-              <span>Section 18: The 30-Second Positioning</span>
-            </div>
-            <h3 className="text-xl sm:text-2xl font-extrabold text-white">
-              "Our goal isn’t to give you another pretty website. Our goal is to help you acquire more clients."
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              We look at the entire journey: how prospects discover you, how they are captured, how they are nurtured, how they book, and how they are followed up with.
-            </p>
-          </div>
-          <Link
-            to="/solutions"
-            className="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold whitespace-nowrap border border-slate-700 flex items-center gap-2"
+          <button 
+            onClick={scrollToAudit}
+            className="btn btn-primary"
           >
-            <span>Read 90-Day Roadmap</span>
-            <ArrowRight className="w-4 h-4 text-emerald-400" />
-          </Link>
-        </div>
-      </section>
+            <Flame className="w-5 h-5 fill-current" />
+            <span>Run My Free Audit</span>
+          </button>
 
-      {/* 3. INTERACTIVE LOST REVENUE CALCULATOR */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <LostRevenueCalculator />
-      </section>
-
-      {/* 4. THE COMPLETE CLIENT ACQUISITION MACHINE (DIAGRAM) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <CompleteMachineDiagram />
-      </section>
-
-      {/* 5. SERVICES OVERVIEW (DFY, DWY, DIY) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-        <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider">
-            <Layers className="w-3.5 h-3.5" />
-            <span>Our Services</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Tailored Engagement <span className="gradient-text">Models</span>
-          </h2>
-          <p className="text-slate-400 text-sm sm:text-base">
-            From complete Done-For-You infrastructure installation to collaborative Done-With-You sprints.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-6 rounded-3xl bg-slate-900/90 border border-emerald-500/30 space-y-4 hover:border-emerald-500/60 transition-all shadow-xl">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Model 01</span>
-              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300">
-                Done-For-You
-              </span>
-            </div>
-            <h3 className="text-xl font-black text-white">Full DFY Infrastructure</h3>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              We design, build, test, and install your entire 5-pillar diagnostic quiz, CRM pipeline, and SMS automations. Zero tech headaches.
-            </p>
-            <Link to="/services" className="text-xs font-bold text-emerald-400 flex items-center gap-1 hover:underline pt-2">
-              <span>Learn about DFY</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-
-          <div className="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-4 hover:border-cyan-500/40 transition-all shadow-xl">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Model 02</span>
-              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300">
-                Done-With-You
-              </span>
-            </div>
-            <h3 className="text-xl font-black text-white">Collaborative Sprints</h3>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Intensive implementation sprints where we guide you and your team through installing and mastering the acquisition machine.
-            </p>
-            <Link to="/services" className="text-xs font-bold text-cyan-400 flex items-center gap-1 hover:underline pt-2">
-              <span>Learn about DWY</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-
-          <div className="p-6 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-4 hover:border-purple-500/40 transition-all shadow-xl">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Model 03</span>
-              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300">
-                Do-It-Yourself
-              </span>
-            </div>
-            <h3 className="text-xl font-black text-white">Operating Playbooks</h3>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Step-by-step 90-day operating frameworks, 4-part outreach formulas, and diagnostic quiz templates ready to deploy.
-            </p>
-            <Link to="/services" className="text-xs font-bold text-purple-400 flex items-center gap-1 hover:underline pt-2">
-              <span>Learn about DIY</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. WHO WE ARE HIGHLIGHT */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="glass-panel p-8 sm:p-10 rounded-3xl border border-emerald-500/30 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center shadow-xl">
-          <div className="lg:col-span-8 space-y-4">
-            <div className="inline-flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase tracking-widest">
-              <Users className="w-4 h-4" />
-              <span>Who We Are • NexLeads</span>
-            </div>
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
-              We help coaches escape manual DM chaos and install <span className="gradient-text">predictable growth systems</span>.
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Founded on the belief that life-changing coaching deserves a scalable acquisition system. We don’t sell pretty websites—we build conversion engines that predictably turn existing followers into $1,000–$10,000+ client relationships.
-            </p>
-            <div className="pt-2 flex flex-wrap gap-4">
-              <Link
-                to="/who-we-are"
-                className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center gap-2 border border-slate-700"
-              >
-                <span>Read Our Full Story & Principles</span>
-                <ArrowRight className="w-3.5 h-3.5 text-emerald-400" />
-              </Link>
-            </div>
-          </div>
-
-          <div className="lg:col-span-4 bg-slate-950/80 p-6 rounded-2xl border border-slate-800 space-y-3 text-center">
-            <div className="text-3xl font-black text-emerald-400 font-mono">88.5%</div>
-            <div className="text-xs font-bold text-white uppercase tracking-wider">Average Show-Up Rate</div>
-            <p className="text-[11px] text-slate-400 leading-relaxed">
-              Powered by our automated multi-touch reminder & pre-call qualification engine.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. NICHE SPECIALIZATION (SECTION 1) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider">
-            <Target className="w-3.5 h-3.5" />
-            <span>Section 1: Who We Help</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Engineered For <span className="gradient-text">High-Ticket Coaches</span>
-          </h2>
-          <p className="text-slate-400 text-sm sm:text-base">
-            Already have an offer between $1,000–$10,000+? We install custom acquisition systems tailored to your specific audience dynamics.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {niches.map((item, i) => (
-            <div key={i} className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3 hover:border-emerald-500/40 transition-colors">
-              <div className="flex items-center justify-between">
-                <h4 className="font-extrabold text-white text-base">{item.name}</h4>
-                <span className="text-xs font-mono font-bold text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">
-                  {item.avgPrice}
-                </span>
+          {/* Bento Grid */}
+          <div className="bento">
+            <div className="bento-card big">
+              <div>
+                <h3 className="text-white">Client Acquisition Systems</h3>
+                <p className="text-[#B8ADC9]">Funnels, CRM, and automation built specifically for coaches selling $1K–$10K programs.</p>
               </div>
-              <p className="text-xs text-rose-300/90 leading-relaxed">
-                <strong className="text-rose-400">Bottleneck:</strong> {item.pain}
+              <div className="bento-num text-transparent bg-clip-text bg-gradient-to-r from-[#FF4468] via-[#FFA23D] to-[#D4FF3D]">
+                01→05
+              </div>
+            </div>
+
+            <div className="bento-card flame">
+              <h3>Capture</h3>
+              <p>Turn DMs into tracked leads, not vibes.</p>
+            </div>
+
+            <div className="bento-card lime">
+              <h3>Automate</h3>
+              <p>Follow-up that runs while you coach.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* SIGNAL WAVE (THE PROBLEM) */}
+        <section className="py-20 border-t border-white/5">
+          <div className="text-xs font-bold uppercase tracking-widest text-[#FF4468] mb-4">
+            THE PROBLEM
+          </div>
+          
+          <div className="mb-10">
+            <h2 className="text-3xl sm:text-5xl font-black text-white max-w-[640px] mb-3">
+              Every lead is a signal. Most flatline.
+            </h2>
+            <p className="text-[#B8ADC9] text-base sm:text-lg max-w-[540px]">
+              A DM comes in strong — then hits silence. Here's exactly where that happens.
+            </p>
+          </div>
+
+          <div className="wave-box">
+            <div className="wave-inner">
+              <svg className="w-full h-auto block" viewBox="0 0 800 160" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#D4FF3D" />
+                    <stop offset="35%" stopColor="#D4FF3D" />
+                    <stop offset="40%" stopColor="#FF4468" />
+                    <stop offset="65%" stopColor="#FF4468" />
+                    <stop offset="70%" stopColor="#FFA23D" />
+                    <stop offset="100%" stopColor="#FFA23D" />
+                  </linearGradient>
+                </defs>
+                <path
+                  d="M0,80 L60,80 L75,30 L90,130 L105,50 L120,80 L280,80 L290,80 L300,80 L440,80 L450,80 L460,80 L620,80 L635,55 L650,105 L665,80 L800,80"
+                  fill="none"
+                  stroke="url(#waveGrad)"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+
+              <div className="fail-labels">
+                <div className="fail-item">
+                  <strong>DM spikes, then flat</strong>
+                  <span>no system to sort who's serious</span>
+                </div>
+                <div className="fail-item">
+                  <strong>Interest flatlines</strong>
+                  <span>no nurture, they go cold</span>
+                </div>
+                <div className="fail-item">
+                  <strong>Ready-to-talk flatlines</strong>
+                  <span>no booking flow, no call locked</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* AUDIT SECTION */}
+        <section id="audit" ref={auditRef} className="py-20 border-t border-white/5">
+          <div className="text-center mb-10">
+            <div className="text-xs font-bold uppercase tracking-widest text-[#FF4468] mb-3">
+              RUN THE AUDIT
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-black text-white">
+              Five questions. Your real score.
+            </h2>
+          </div>
+
+          <div className="panel">
+            <div className="panel-inner">
+              
+              {formState === 'idle' && (
+                <form onSubmit={handleAuditSubmit} className="space-y-5">
+                  <div className="field">
+                    <label>NAME</label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="Jane Coach"
+                    />
+                  </div>
+
+                  <div className="field-row">
+                    <div className="field">
+                      <label>EMAIL</label>
+                      <input
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        placeholder="jane@coaching.com"
+                      />
+                    </div>
+                    <div className="field">
+                      <label>INSTAGRAM / WEBSITE</label>
+                      <input
+                        type="text"
+                        required
+                        value={formData.site}
+                        onChange={(e) => setFormData({ ...formData, site: e.target.value })}
+                        placeholder="@janecoaches"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="field">
+                    <label>MONTHLY LEADS</label>
+                    <select
+                      required
+                      value={formData.leads}
+                      onChange={(e) => setFormData({ ...formData, leads: e.target.value })}
+                    >
+                      <option value="">Select one</option>
+                      <option value="low">0–10</option>
+                      <option value="mid">11–25</option>
+                      <option value="high">26–50</option>
+                      <option value="top">50+</option>
+                    </select>
+                  </div>
+
+                  <div className="field">
+                    <label>WHERE MOST LEADS COME FROM</label>
+                    <select
+                      required
+                      value={formData.source}
+                      onChange={(e) => setFormData({ ...formData, source: e.target.value })}
+                    >
+                      <option value="">Select one</option>
+                      <option value="dm">Instagram DMs, no form</option>
+                      <option value="form">Website / landing page form</option>
+                      <option value="referral">Referrals</option>
+                      <option value="ads">Paid ads</option>
+                      <option value="mixed">A mix of the above</option>
+                    </select>
+                  </div>
+
+                  <div className="field">
+                    <label>BIGGEST CHALLENGE RIGHT NOW</label>
+                    <select
+                      required
+                      value={formData.challenge}
+                      onChange={(e) => setFormData({ ...formData, challenge: e.target.value })}
+                    >
+                      <option value="">Select one</option>
+                      <option value="notenough">Not enough leads</option>
+                      <option value="cold">Leads go cold before booking</option>
+                      <option value="booking">Weak booking / low show-up rate</option>
+                      <option value="close">Low close rate on calls</option>
+                    </select>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="btn btn-primary w-full mt-2"
+                  >
+                    <span>Run Diagnostic</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </form>
+              )}
+
+              {formState === 'scanning' && (
+                <div className="text-center py-16 px-4 space-y-6">
+                  <div className="scan-pulse" />
+                  <div className="font-bold text-sm text-[#B8ADC9] tracking-wider uppercase">
+                    SCANNING FUNNEL...
+                  </div>
+                </div>
+              )}
+
+              {formState === 'results' && (
+                <div className="space-y-6 animate-fadeIn">
+                  <div className="big-score text-center mb-8">
+                    <div className="num">{displayedOverall}</div>
+                    <div className="lbl text-[#B8ADC9] text-sm mt-1 uppercase font-bold tracking-wider">
+                      OVERALL FUNNEL SCORE
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="score-row">
+                      <div className="score-label">Traffic</div>
+                      <div className="score-track">
+                        <div
+                          className="score-fill"
+                          style={{
+                            width: `${scores.traffic}%`,
+                            background: getScoreColor(scores.traffic)
+                          }}
+                        />
+                      </div>
+                      <div className="score-num" style={{ color: getScoreColor(scores.traffic) }}>
+                        {scores.traffic}
+                      </div>
+                    </div>
+
+                    <div className="score-row">
+                      <div className="score-label">Lead Capture</div>
+                      <div className="score-track">
+                        <div
+                          className="score-fill"
+                          style={{
+                            width: `${scores.capture}%`,
+                            background: getScoreColor(scores.capture)
+                          }}
+                        />
+                      </div>
+                      <div className="score-num" style={{ color: getScoreColor(scores.capture) }}>
+                        {scores.capture}
+                      </div>
+                    </div>
+
+                    <div className="score-row">
+                      <div className="score-label">Nurturing</div>
+                      <div className="score-track">
+                        <div
+                          className="score-fill"
+                          style={{
+                            width: `${scores.nurture}%`,
+                            background: getScoreColor(scores.nurture)
+                          }}
+                        />
+                      </div>
+                      <div className="score-num" style={{ color: getScoreColor(scores.nurture) }}>
+                        {scores.nurture}
+                      </div>
+                    </div>
+
+                    <div className="score-row">
+                      <div className="score-label">Booking</div>
+                      <div className="score-track">
+                        <div
+                          className="score-fill"
+                          style={{
+                            width: `${scores.booking}%`,
+                            background: getScoreColor(scores.booking)
+                          }}
+                        />
+                      </div>
+                      <div className="score-num" style={{ color: getScoreColor(scores.booking) }}>
+                        {scores.booking}
+                      </div>
+                    </div>
+
+                    <div className="score-row">
+                      <div className="score-label">Follow-Up</div>
+                      <div className="score-track">
+                        <div
+                          className="score-fill"
+                          style={{
+                            width: `${scores.followup}%`,
+                            background: getScoreColor(scores.followup)
+                          }}
+                        />
+                      </div>
+                      <div className="score-num" style={{ color: getScoreColor(scores.followup) }}>
+                        {scores.followup}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="verdict">
+                    <strong>Weakest pillar: {weakestPillar}.</strong>
+                    <br />
+                    This is usually the fastest fix — and the one costing the most booked calls right now.
+                  </div>
+
+                  {/* Calendly Booking CTA */}
+                  <div className="pt-2">
+                    <a
+                      href={CALENDLY_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-primary w-full text-center flex items-center justify-center gap-2"
+                    >
+                      <Calendar className="w-5 h-5" />
+                      <span>Book My Free Strategy Call</span>
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                    <p className="micro text-center mt-3">
+                      30 minutes · No pitch · Just the gap and the fix
+                    </p>
+                  </div>
+
+                </div>
+              )}
+
+            </div>
+          </div>
+        </section>
+
+        {/* ECONOMIC VALUE CALCULATOR */}
+        <section className="py-20 border-t border-white/5">
+          <LostRevenueCalculator />
+        </section>
+
+        {/* COMPLETE ACQUISITION MACHINE DIAGRAM */}
+        <section className="py-20 border-t border-white/5">
+          <CompleteMachineDiagram />
+        </section>
+
+        {/* WHO WE ARE HIGHLIGHT (MOHAMMAD GALIB KHAN) */}
+        <section className="py-20 border-t border-white/5">
+          <div className="glass-panel p-8 sm:p-12 rounded-3xl border border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center shadow-2xl">
+            <div className="lg:col-span-8 space-y-4">
+              <div className="inline-flex items-center gap-2 text-xs font-bold text-[#FFA23D] uppercase tracking-widest">
+                <Users className="w-4 h-4" />
+                <span>Who We Are • NexLeads</span>
+              </div>
+              <h3 className="text-2xl sm:text-4xl font-extrabold text-white leading-tight">
+                Client Acquisition Infrastructure <span className="gradient-text">Built to Scale</span>
+              </h3>
+              <p className="text-sm sm:text-base text-[#B8ADC9] leading-relaxed">
+                Founded by <strong>Mohammad Galib Khan</strong> to help coaches and B2B founders break the cycle of manual DM chaos and build predictable, scalable client acquisition machines.
+              </p>
+              <div className="pt-2 flex flex-wrap gap-4">
+                <Link
+                  to="/who-we-are"
+                  className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs font-bold flex items-center gap-2 border border-white/10 transition-colors"
+                >
+                  <span>Read Full Story & Founder Profile</span>
+                  <ArrowRight className="w-4 h-4 text-[#FF4468]" />
+                </Link>
+                <a
+                  href={CALENDLY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3 rounded-full bg-gradient-to-r from-[#FF4468] to-[#FFA23D] text-[#0A0710] text-xs font-bold flex items-center gap-2"
+                >
+                  <Calendar className="w-4 h-4" />
+                  <span>Book on Calendly</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="lg:col-span-4 bg-[#160D24] p-6 rounded-2xl border border-white/10 space-y-3 text-center">
+              <div className="text-4xl font-black text-[#D4FF3D] font-mono">127+</div>
+              <div className="text-xs font-bold text-white uppercase tracking-wider">Founders & Coaches Scaled</div>
+              <p className="text-xs text-[#B8ADC9] leading-relaxed">
+                $4.2M+ total pipeline revenue generated across verified client funnels.
               </p>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 6. VERIFIED CASE STUDIES (SECTION 15) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <CaseStudies />
-      </section>
-
-      {/* 7. OFFER TIERS (SECTION 14) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <OfferTiers />
-      </section>
-
-      {/* 8. FAQS */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <div className="text-center space-y-3">
-          <h2 className="text-3xl font-extrabold text-white">Frequently Asked Questions</h2>
-          <p className="text-slate-400 text-sm">Everything you need to know about our Client Acquisition System.</p>
-        </div>
-
-        <div className="space-y-3">
-          {faqs.map((faq, idx) => (
-            <div
-              key={idx}
-              className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 cursor-pointer transition-colors"
-              onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-            >
-              <div className="flex items-center justify-between font-bold text-sm text-white">
-                <span>{faq.q}</span>
-                <ChevronDown className={`w-4 h-4 text-emerald-400 transition-transform ${openFaq === idx ? 'rotate-180' : ''}`} />
-              </div>
-              {openFaq === idx && (
-                <p className="mt-3 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/80 pt-3">
-                  {faq.a}
-                </p>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 9. BOTTOM FLOATING CTA */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 text-navy-950 text-center space-y-6 shadow-2xl relative overflow-hidden">
-          <div className="space-y-2 max-w-2xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white">
-              Ready to Stop Losing High-Ticket Leads?
-            </h2>
-            <p className="text-slate-100 text-sm sm:text-base font-medium">
-              Get your custom 5-pillar diagnostic scorecard in less than 2 minutes and see exactly where your funnel is leaking revenue.
-            </p>
           </div>
+        </section>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              to="/audit"
-              className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-navy-950 hover:bg-slate-900 text-emerald-400 font-extrabold text-sm flex items-center justify-center gap-2 shadow-xl"
-            >
-              <Flame className="w-4 h-4" />
-              <span>Start Free 5-Pillar Funnel Audit</span>
-            </Link>
-            <Link
-              to="/book"
-              className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white/20 hover:bg-white/30 text-white font-bold text-sm backdrop-blur-sm border border-white/30 flex items-center justify-center gap-2"
-            >
-              <Calendar className="w-4 h-4" />
-              <span>Schedule 1-on-1 Strategy Session</span>
-            </Link>
+        {/* VERIFIED CASE STUDIES */}
+        <section className="py-20 border-t border-white/5">
+          <CaseStudies />
+        </section>
+
+        {/* OFFER TIERS */}
+        <section className="py-20 border-t border-white/5">
+          <OfferTiers />
+        </section>
+
+      </div>
+
+      {/* Footer Marquee */}
+      <footer className="mt-20">
+        <div className="marquee">
+          <div className="marquee-track">
+            <span>@ITARISH.AI</span>
+            <span>NEXLEADS</span>
+            <span>CLIENT ACQUISITION SYSTEMS</span>
+            <span>@ITARISH.AI</span>
+            <span>NEXLEADS</span>
+            <span>CLIENT ACQUISITION SYSTEMS</span>
           </div>
         </div>
-      </section>
-
+      </footer>
     </div>
   );
 }
