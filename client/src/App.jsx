@@ -21,7 +21,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0A0710] text-[#FAF6EF] selection:bg-[#FF4468] selection:text-[#0A0710]">
-      <Navbar />
+      {!isHomePage && <Navbar />}
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<HomePage />} />

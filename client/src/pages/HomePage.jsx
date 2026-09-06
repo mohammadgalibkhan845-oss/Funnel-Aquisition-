@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { Flame, ArrowRight, Calendar, ExternalLink } from 'lucide-react';
 import { api } from '../services/api';
 
@@ -127,8 +128,8 @@ export default function HomePage() {
       <div className="blob blob2" />
       <div className="blob blob3" />
 
-      {/* Top Marquee */}
-      <div className="marquee mt-16 sm:mt-20">
+      {/* 1. TOP MARQUEE (Moving white ticker flush at the very top) */}
+      <div className="marquee">
         <div className="marquee-track">
           <span>FREE FUNNEL AUDIT</span>
           <span>90 SECONDS</span>
@@ -141,10 +142,37 @@ export default function HomePage() {
         </div>
       </div>
 
+      {/* 2. TOP RIGHT BOOK A CALL BAR (Just below the moving white marquee) */}
+      <div className="max-w-[1100px] mx-auto px-5 sm:px-8 pt-6 pb-2 relative z-10 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2.5 group">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#FF4468] via-[#FFA23D] to-[#D4FF3D] p-[1.5px] shadow-md shadow-[#FF4468]/30 group-hover:scale-105 transition-transform duration-300">
+            <div className="w-full h-full bg-[#0A0710] rounded-full flex items-center justify-center">
+              <Flame className="w-4 h-4 text-[#FF4468] fill-current" />
+            </div>
+          </div>
+          <div className="flex items-center">
+            <span className="font-extrabold text-lg tracking-tight text-white font-['Bricolage_Grotesque']">
+              NEX<span className="text-[#FF4468]">LEADS</span>
+            </span>
+          </div>
+        </Link>
+
+        {/* Book a Call Button at Top Right */}
+        <a
+          href={CALENDLY_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-primary text-xs sm:text-sm px-5 sm:px-6 py-2.5 shadow-lg shadow-[#FF4468]/30 font-['Bricolage_Grotesque'] flex items-center gap-2"
+        >
+          <Calendar className="w-4 h-4" />
+          <span>Book a Call</span>
+        </a>
+      </div>
+
       <div className="max-w-[1100px] mx-auto px-5 sm:px-8 relative z-10">
 
         {/* HERO SECTION */}
-        <section className="pt-16 sm:pt-24 pb-16">
+        <section className="pt-10 sm:pt-16 pb-16">
           <h1 className="text-4xl sm:text-7xl lg:text-[84px] font-black max-w-[920px] mb-8 leading-[0.98] tracking-tight">
             Your funnel has<br />a leak.<br />
             <span className="text-transparent font-black" style={{ WebkitTextStroke: '1.5px var(--dim)', color: 'transparent' }}>
